@@ -15,7 +15,8 @@ A new Flutter plugin project.
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'KlarnaMobileSDK', '~> 2.4.1'
+  s.dependency 'KlarnaMobileSDK', '~> 2.6.21'
+  # s.dependency 'KlarnaMobileSDK', '~> 2.4.1'
 
   s.platform = :ios, '11.0'
 

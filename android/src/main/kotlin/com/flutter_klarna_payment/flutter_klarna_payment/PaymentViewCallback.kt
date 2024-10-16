@@ -11,6 +11,7 @@ class PaymentViewCallback(private val streamHandler: PaymentStreamHandler) : Kla
         authToken: String?,
         finalizedRequired: Boolean?
     ) {
+        println("PaymentViewCallback: onAuthorized called")
         if(authToken!=null){
             streamHandler.sendMessage(KlarnaPaymentState.AUTHORIZED.toCamelCase(),authToken)
             view.finalize(null)
@@ -22,7 +23,7 @@ class PaymentViewCallback(private val streamHandler: PaymentStreamHandler) : Kla
     }
 
     override fun onFinalized(view: KlarnaPaymentView, approved: Boolean, authToken: String?) {
-        streamHandler.sendMessage(KlarnaPaymentState.FINALIZED.toCamelCase(),null)
+        streamHandler.sendMessage(KlarnaPaymentState.FINALIZED.toCamelCase(), authToken)
     }
 
     override fun onInitialized(view: KlarnaPaymentView) {
