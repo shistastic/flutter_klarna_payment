@@ -6,7 +6,6 @@ buildscript {
     repositories {
         google()
         mavenCentral()
-
     }
 
     dependencies {
@@ -73,7 +72,7 @@ android {
 }
 
 dependencies {
-    implementation 'com.klarna.mobile:sdk:2.6.16'
+    implementation 'com.klarna.mobile:sdk:2.6.2'
 //    implementation 'com.klarna.mobile:sdk:2.4.1'
 }
 
