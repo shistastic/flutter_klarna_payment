@@ -128,7 +128,59 @@ In this example, replace `'token'`, and `'returnUrl'` with your Klarna client to
 
 ## Example
 
-See completed example within the `example` folder
+See completed example within the `example` folder (the simple one)
+
+Another way of working with this package is by using completer (because the pay method is using events and sometimes you need to wait for the authorize/finalise to return the token (for maybe some reason, maybe your backend needs it) so to make a syncronous call work like an asynchronous call this is the way). 
+Make sure to assign your clientToken to the PaymentView before calling payWithKlarna.
+
+```dart
+ Future<String> payWithKlarna() async {
+    final completer = Completer<String>();
+    final broadcastStream = klarnaController.stateStream;
+    final subscription = broadcastStream.listen((event) {
+      if (event.state == KlarnaState.authorized) {
+        debugPrint("Payment authorized. Auth token: ${event.message}");
+        // Complete with the auth token
+        completer.complete(event.message);
+      } else if (event.state == KlarnaState.finalized) {
+        debugPrint("Payment finalized. Auth token: ${event.message}");
+        // Complete with the auth token if not already done
+        completer.complete(event.message);
+      } else if (event.state == KlarnaState.errorOccurred) {
+        debugPrint("Error occurred: ${event.message}");
+        // Complete with error message
+        completer.completeError(event.message ?? "Payment failed or was canceled");
+      } else {
+        debugPrint("Unhandled Klarna state: ${event.state}");
+      }
+    });
+    try {
+      klarnaController.pay(); // your own controller, var klarnaController = KlarnaPaymentController();
+      final result = await completer.future;
+      await subscription.cancel();
+      return result;
+    } catch (error) {
+      await subscription.cancel();
+      rethrow;
+    }
+  }
+```
+
+The above method can be called like,
+
+```dart
+
+      try {
+        result = await payWithKlarna();
+        print("Payment result: $result");
+      } catch (error) {
+        print("Payment failed with error: $error");
+      }
+
+```
+
+
+
 
 ## License
 
