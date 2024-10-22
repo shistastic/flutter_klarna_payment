@@ -12,10 +12,8 @@ class KlarnaPaymentController {
   }
 
   final _eventChannel = const EventChannel("flutter_klarna_payment_event");
-
   final _flutterKlarnaPaymentPlugin = FlutterKlarnaPayment();
   late final StreamSubscription _subscription;
-  // final _stateController = StreamController<KlarnaPaymentControllerState>();
   final _stateController = BehaviorSubject<KlarnaPaymentControllerState>();
 
   void pay() {
