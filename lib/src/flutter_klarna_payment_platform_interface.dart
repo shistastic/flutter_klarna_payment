@@ -8,8 +8,7 @@ abstract class FlutterKlarnaPaymentPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static FlutterKlarnaPaymentPlatform _instance =
-      MethodChannelFlutterKlarnaPayment();
+  static FlutterKlarnaPaymentPlatform _instance = MethodChannelFlutterKlarnaPayment();
 
   /// The default instance of [FlutterKlarnaPaymentPlatform] to use.
   ///
@@ -20,7 +19,8 @@ abstract class FlutterKlarnaPaymentPlatform extends PlatformInterface {
   /// platform-specific class that extends [FlutterKlarnaPaymentPlatform] when
   /// they register themselves.
   static set instance(FlutterKlarnaPaymentPlatform instance) {
-    PlatformInterface.verifyToken(instance, _token);
+    // PlatformInterface.verifyToken(instance, _token);
+    PlatformInterface.verify(instance, _token);
     _instance = instance;
   }
 

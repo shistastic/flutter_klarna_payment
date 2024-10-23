@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_klarna_payment/flutter_klarna_payment.dart';
 import 'package:flutter_klarna_payment/src/controller/klarna_payment_controller_state.dart';
