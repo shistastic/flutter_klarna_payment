@@ -12,8 +12,10 @@ class PaymentViewCallback(private val streamHandler: PaymentStreamHandler) : Kla
         finalizedRequired: Boolean?
     ) {
         println("PaymentViewCallback: onAuthorized called")
-        if(authToken!=null){
-            streamHandler.sendMessage(KlarnaPaymentState.AUTHORIZED.toCamelCase(),authToken)
+        // Send the event *even if* authToken is null
+        streamHandler.sendMessage(KlarnaPaymentState.AUTHORIZED.toCamelCase(), authToken)
+
+        if (finalizedRequired == true) {
             view.finalize(null)
         }
     }
